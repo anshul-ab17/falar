@@ -162,8 +162,7 @@ export default function Home() {
         <div className="loader-screen">
           <div className="loader-content">
             <Logo size={72} className="logo-wave-active" />
-            <h2 className="loader-title outfit-font">Falar</h2>
-            <p className="loader-subtitle">Loading workspace...</p>
+            <h2 className="loader-title outfit-font">Falar.</h2>
           </div>
         </div>
       )}
