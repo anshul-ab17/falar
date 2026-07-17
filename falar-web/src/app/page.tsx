@@ -430,7 +430,7 @@ export default function Home() {
               >
                 <button className="faq-question" onClick={() => toggleFaq(index)}>
                   <span>{item.question}</span>
-                  <span className="faq-icon">▼</span>
+                  <span className="faq-icon" style={{ fontSize: "1rem", fontWeight: "600" }}>{openFaqIndex === index ? "−" : "+"}</span>
                 </button>
                 <div className="faq-answer">
                   <div className="faq-answer-content">

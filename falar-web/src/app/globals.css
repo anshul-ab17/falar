@@ -747,12 +747,11 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition: var(--transition-fast);
   color: var(--text-secondary);
 }
 
 .faq-item-active .faq-icon {
-  transform: rotate(180deg);
   background-color: var(--accent-primary-glow);
   color: var(--accent-primary);
 }
