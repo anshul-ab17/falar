@@ -906,3 +906,98 @@ footer {
   color: var(--text-primary);
 }
 
+/* ==========================================
+   Loader Screen & Logo Wave Animations
+   ========================================== */
+
+/* Animated Logo Waves */
+.animated-logo-wave .wave-bar {
+  transform-origin: 12px 12px;
+  transition: transform 0.2s ease;
+}
+
+@keyframes logoWave {
+  0%, 100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1.3);
+  }
+}
+
+/* Active Loader Wave State */
+.logo-wave-active .wave-bar.bar-1 { animation: logoWave 1s ease-in-out infinite; }
+.logo-wave-active .wave-bar.bar-2 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.15s; }
+.logo-wave-active .wave-bar.bar-3 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.3s; }
+.logo-wave-active .wave-bar.bar-4 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.45s; }
+
+/* Hover States for Brand & Footer Logos */
+.brand-section:hover .animated-logo-wave .wave-bar.bar-1,
+.footer-brand:hover .animated-logo-wave .wave-bar.bar-1 {
+  animation: logoWave 0.8s ease-in-out infinite;
+}
+.brand-section:hover .animated-logo-wave .wave-bar.bar-2,
+.footer-brand:hover .animated-logo-wave .wave-bar.bar-2 {
+  animation: logoWave 0.8s ease-in-out infinite;
+  animation-delay: 0.12s;
+}
+.brand-section:hover .animated-logo-wave .wave-bar.bar-3,
+.footer-brand:hover .animated-logo-wave .wave-bar.bar-3 {
+  animation: logoWave 0.8s ease-in-out infinite;
+  animation-delay: 0.24s;
+}
+.brand-section:hover .animated-logo-wave .wave-bar.bar-4,
+.footer-brand:hover .animated-logo-wave .wave-bar.bar-4 {
+  animation: logoWave 0.8s ease-in-out infinite;
+  animation-delay: 0.36s;
+}
+
+/* Loader Screen Overlay */
+.loader-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.loader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loader-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: pulseTitle 2s ease-in-out infinite;
+}
+
+.loader-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-family: 'Fira Code', monospace;
+}
+
+@keyframes pulseTitle {
+  0%, 100% { opacity: 0.8; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+}
+

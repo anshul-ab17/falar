@@ -43,13 +43,37 @@ const FAQ_ITEMS: FAQItem[] = [
   }
 ];
 
+const Logo = ({ size = 28, className = "" }: { size?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={size} height={size} fill="none" className={`animated-logo-wave ${className}`} style={{ flexShrink: 0, borderRadius: "6px" }}>
+    <defs>
+      <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#7a54ff" />
+        <stop offset="100%" stopColor="#906fff" />
+      </linearGradient>
+    </defs>
+    <circle cx="12" cy="12" r="10" fill="url(#logo-grad)" />
+    <rect className="wave-bar bar-1" x="7" y="10" width="2" height="4" rx="1" fill="#ffffff" />
+    <rect className="wave-bar bar-2" x="10" y="7" width="2" height="10" rx="1" fill="#ffffff" />
+    <rect className="wave-bar bar-3" x="13" y="6" width="2" height="12" rx="1" fill="#ffffff" />
+    <rect className="wave-bar bar-4" x="16" y="9" width="2" height="6" rx="1" fill="#ffffff" />
+  </svg>
+);
+
 export default function Home() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [currentText, setCurrentText] = useState<string>("");
   const [activeSegments, setActiveSegments] = useState<Segment[]>([]);
   const [demoIndex, setDemoIndex] = useState<number>(0);
   const [isTranscribing, setIsTranscribing] = useState<boolean>(true);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Monitor scroll state for navbar style transition
   useEffect(() => {
@@ -97,6 +121,17 @@ export default function Home() {
 
   return (
     <div style={{ position: "relative" }}>
+      {/* Loader Screen */}
+      {loading && (
+        <div className="loader-screen">
+          <div className="loader-content">
+            <Logo size={72} className="logo-wave-active" />
+            <h2 className="loader-title outfit-font">Falar</h2>
+            <p className="loader-subtitle">Loading workspace...</p>
+          </div>
+        </div>
+      )}
+
       {/* Background Gradients */}
       <div className="ambient-bg-glow"></div>
       <div className="ambient-bg-glow-bottom"></div>
@@ -105,7 +140,7 @@ export default function Home() {
       <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
         <div className="nav-container">
           <a href="#" className="brand-section">
-            <img src="/icon.png" alt="Falar Logo" width="28" height="28" style={{ borderRadius: "6px" }} />
+            <Logo size={28} />
             <span className="logo" style={{ background: "linear-gradient(135deg, #111827, #374151)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Falar</span>
             <span className="logo-sub">v0.1.0</span>
           </a>
@@ -449,7 +484,7 @@ export default function Home() {
           <div className="footer-grid">
             <div className="footer-brand">
               <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <img src="/icon.png" alt="Falar Logo" width="28" height="28" style={{ borderRadius: "6px" }} />
+                <Logo size={28} />
                 <span className="logo" style={{ background: "linear-gradient(135deg, #111827, #374151)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Falar</span>
               </div>
               <p className="footer-desc">
