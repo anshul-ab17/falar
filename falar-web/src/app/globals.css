@@ -77,13 +77,25 @@ body {
 }
 
 /* Letter-spacing & Weight animations on hover */
+@keyframes textShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .animate-font-hover {
   transition: var(--transition-smooth);
+  display: inline-block;
 }
 
 .animate-font-hover:hover {
   letter-spacing: 0.02em;
-  color: var(--accent-primary);
+  transform: scale(1.02);
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 2s linear infinite;
 }
 
 /* Slide line effect for text links */
@@ -510,9 +522,10 @@ body {
 }
 
 .interactive-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-12px);
+  border-color: rgba(122, 84, 255, 0.25);
+  box-shadow: 0 30px 60px -15px rgba(122, 84, 255, 0.15), 0 10px 25px -10px rgba(122, 84, 255, 0.1);
+  background: linear-gradient(180deg, #ffffff 0%, rgba(122, 84, 255, 0.01) 100%);
 }
 
 .interactive-card:hover::before {
@@ -539,8 +552,9 @@ body {
 
 .interactive-card:hover .card-icon-wrapper {
   background: var(--accent-primary-glow);
-  border-color: rgba(79, 70, 229, 0.2);
-  transform: scale(1.05) rotate(3deg);
+  border-color: rgba(122, 84, 255, 0.3);
+  transform: translateY(-4px) scale(1.12) rotate(6deg);
+  box-shadow: 0 10px 20px -5px rgba(122, 84, 255, 0.2);
 }
 
 .card-title {
