@@ -118,25 +118,36 @@ export default function App() {
     return () => { unsubs.forEach((p) => p.then((fn) => fn())); };
   }, []);
 
-  // Drag-and-drop
+  // Drag-and-drop (Tauri native)
   useEffect(() => {
     const el = dropRef.current;
     if (!el) return;
-    const over = (e: DragEvent) => { e.preventDefault(); el.classList.add("drag-over"); };
-    const leave = () => el.classList.remove("drag-over");
-    const drop = (e: DragEvent) => {
-      e.preventDefault();
-      el.classList.remove("drag-over");
-      const file = e.dataTransfer?.files[0];
-      if (file) runTranscription((file as any).path ?? "");
-    };
-    el.addEventListener("dragover", over);
-    el.addEventListener("dragleave", leave);
-    el.addEventListener("drop", drop);
+
+    const unsubs: Promise<UnlistenFn>[] = [];
+
+    unsubs.push(
+      listen("tauri://drag-enter", () => {
+        el.classList.add("drag-over");
+      })
+    );
+
+    unsubs.push(
+      listen("tauri://drag-leave", () => {
+        el.classList.remove("drag-over");
+      })
+    );
+
+    unsubs.push(
+      listen<{ paths: string[] }>("tauri://drag-drop", ({ payload }) => {
+        el.classList.remove("drag-over");
+        if (payload.paths && payload.paths.length > 0) {
+          runTranscription(payload.paths[0]);
+        }
+      })
+    );
+
     return () => {
-      el.removeEventListener("dragover", over);
-      el.removeEventListener("dragleave", leave);
-      el.removeEventListener("drop", drop);
+      unsubs.forEach((p) => p.then((fn) => fn()));
     };
   }, [runTranscription]);
 
