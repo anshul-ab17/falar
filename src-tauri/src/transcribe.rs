@@ -42,6 +42,11 @@ pub fn run_transcription(
     params.set_print_realtime(false);
     params.set_print_timestamps(false);
     params.set_translate(translate);
+    
+    let cancel_cb = cancel.clone();
+    params.set_abort_callback_safe(move || {
+        *cancel_cb.lock().unwrap()
+    });
 
     if let Some(ref lang) = language {
         params.set_language(Some(lang));
