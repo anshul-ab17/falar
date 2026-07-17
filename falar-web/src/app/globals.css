@@ -910,46 +910,39 @@ footer {
    Loader Screen & Logo Wave Animations
    ========================================== */
 
-/* Animated Logo Waves */
-.animated-logo-wave .wave-bar {
-  transform-origin: 12px 12px;
-  transition: transform 0.2s ease;
+/* Animated Logo Loader styles */
+.logo-container {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes logoWave {
-  0%, 100% {
-    transform: scaleY(0.4);
-  }
-  50% {
-    transform: scaleY(1.3);
-  }
+.logo-bar {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-/* Active Loader Wave State */
-.logo-wave-active .wave-bar.bar-1 { animation: logoWave 1s ease-in-out infinite; }
-.logo-wave-active .wave-bar.bar-2 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.15s; }
-.logo-wave-active .wave-bar.bar-3 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.3s; }
-.logo-wave-active .wave-bar.bar-4 { animation: logoWave 1s ease-in-out infinite; animation-delay: 0.45s; }
+@keyframes om-bar-wave {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
 
-/* Hover States for Brand & Footer Logos */
-.brand-section:hover .animated-logo-wave .wave-bar.bar-1,
-.footer-brand:hover .animated-logo-wave .wave-bar.bar-1 {
-  animation: logoWave 0.8s ease-in-out infinite;
+@keyframes om-bar-pulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.35); opacity: 0.6; }
 }
-.brand-section:hover .animated-logo-wave .wave-bar.bar-2,
-.footer-brand:hover .animated-logo-wave .wave-bar.bar-2 {
-  animation: logoWave 0.8s ease-in-out infinite;
-  animation-delay: 0.12s;
+
+/* Active Loader wave animation */
+.logo-wave-active .logo-bar {
+  animation: om-bar-wave 1.1s ease-in-out infinite;
 }
-.brand-section:hover .animated-logo-wave .wave-bar.bar-3,
-.footer-brand:hover .animated-logo-wave .wave-bar.bar-3 {
-  animation: logoWave 0.8s ease-in-out infinite;
-  animation-delay: 0.24s;
+
+/* Hover-triggered wave animation on navbar & footer */
+.brand-section:hover .logo-container .logo-bar,
+.footer-brand:hover .logo-container .logo-bar {
+  animation: om-bar-wave 1.1s ease-in-out infinite;
 }
-.brand-section:hover .animated-logo-wave .wave-bar.bar-4,
-.footer-brand:hover .animated-logo-wave .wave-bar.bar-4 {
-  animation: logoWave 0.8s ease-in-out infinite;
-  animation-delay: 0.36s;
+
+.brand-section:hover .logo-container,
+.footer-brand:hover .logo-container {
+  transform: scale(1.08);
 }
 
 /* Loader Screen Overlay */
@@ -977,7 +970,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .loader-title {
