@@ -10,9 +10,9 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
-  --accent-primary: #4f46e5;      /* Indigo */
-  --accent-secondary: #7c3aed;    /* Purple */
-  --accent-glow: rgba(79, 70, 229, 0.15);
+  --accent-primary: #7a54ff;      /* Vibrant Violet/Purple from image.png */
+  --accent-secondary: #906fff;    /* Complementary purple */
+  --accent-glow: rgba(122, 84, 255, 0.15);
   
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.15s ease-out;

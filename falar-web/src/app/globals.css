@@ -10,12 +10,12 @@
   --text-secondary: #475569;
   --text-muted: #64748b;
   
-  --accent-primary: #4f46e5;      /* Indigo */
-  --accent-primary-hover: #4338ca;
-  --accent-primary-glow: rgba(79, 70, 229, 0.08);
+  --accent-primary: #7a54ff;      /* Vibrant Violet/Purple from image.png */
+  --accent-primary-hover: #6333f6;
+  --accent-primary-glow: rgba(122, 84, 255, 0.08);
   
-  --accent-secondary: #7c3aed;    /* Purple */
-  --accent-secondary-glow: rgba(124, 58, 237, 0.08);
+  --accent-secondary: #906fff;    /* Complementary purple */
+  --accent-secondary-glow: rgba(144, 111, 255, 0.08);
   
   --accent-cyan: #06b6d4;         /* Cyan accent */
   --accent-cyan-glow: rgba(6, 182, 212, 0.1);
