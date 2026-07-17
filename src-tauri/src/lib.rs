@@ -39,30 +39,22 @@ async fn transcribe(
     state.cancel.reset();
     let cancel = state.cancel.0.clone();
 
-    let pcm = if source == "pcm" {
-        pcm_data.ok_or("pcm_data required when source == 'pcm'")?
-    } else {
-        audio::decode_audio_file(&source).map_err(|e| e.to_string())?
-    };
-
     let app2 = app.clone();
     tokio::task::spawn_blocking(move || {
-        let _ = transcribe::run_transcription(app2, model_path, pcm, language, translate, cancel);
-    }).await.map_err(|e| e.to_string())?;
+        let pcm = if source == "pcm" {
+            pcm_data.ok_or_else(|| "pcm_data required when source == 'pcm'".to_string())?
+        } else {
+            audio::decode_audio_file(&source).map_err(|e| e.to_string())?
+        };
 
-    Ok(())
+        transcribe::run_transcription(app2, model_path, pcm, language, translate, cancel)
+            .map_err(|e| e.to_string())
+    }).await.map_err(|e| e.to_string())?
 }
 
 #[tauri::command]
 fn cancel(state: State<'_, AppState>) {
     state.cancel.cancel();
-}
-
-#[tauri::command]
-async fn save_transcript(path: String, text: String) -> Result<(), String> {
-    tokio::fs::write(&path, text.as_bytes())
-        .await
-        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -83,7 +75,6 @@ pub fn run() {
             ensure_model,
             transcribe,
             cancel,
-            save_transcript,
             model_cached,
         ])
         .run(tauri::generate_context!())
